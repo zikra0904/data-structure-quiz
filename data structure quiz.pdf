@@ -1,0 +1,139 @@
+NAme: zikra abdusemed
+ID: UGR/8046/15
+
+write a java or python implementation of
+
+ a) linear queue
+ 
+public class LinearQueue {
+    private int front, rear, size;
+    private int capacity;
+    private int[] queue;
+
+    public LinearQueue(int capacity) {
+        this.capacity = capacity;
+        front=this.size=0;
+        rear=capacity-1;
+        queue=new int[this.capacity];
+    }
+    public boolean isFull(){
+        return size==capacity;
+    }
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public void enqueue(int item) {
+        if (isFull()) {
+            System.out.println("Queue is full");
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        queue[rear] = item;
+        size++;
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return Integer.MIN_VALUE;
+        }
+        int item = queue[front];
+        front = (front + 1) % capacity;
+        size--;
+        return item;
+    }
+    public static void main(String[] args) {
+        LinearQueue queue = new LinearQueue(5);
+
+        queue.enqueue(10);
+        queue.enqueue(20);
+
+        System.out.println(queue.dequeue());
+
+        queue.enqueue(30);
+
+        System.out.println(queue.dequeue());
+
+    }
+}
+
+
+b) circular queue
+
+
+public class CircularQueue {
+    private int front, rear, size;
+    private int capacity;
+    private int[] queue;
+    public CircularQueue(int capacity) {
+        this.capacity = capacity;
+        front=this.size=0;
+        rear=capacity-1;
+        queue=new int[this.capacity];
+    }
+    public boolean inisFull(){
+        return size==capacity;
+    }
+    public boolean isEmpty(){
+        return size==0;
+    }
+    public void enqueue(int item){
+        if(inisFull()){
+            System.out.println("Queue is full");
+            return;
+        }
+        rear=(rear+1)%capacity;
+        queue[rear]=item;
+    }
+    public int dequeue(){
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return Integer.MIN_VALUE;
+        }
+
+        int item = queue[front];
+        front = (front + 1) % capacity;
+        size--;
+        return item;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return Integer.MIN_VALUE;
+        }
+
+        return queue[front];
+    }
+}
+
+
+
+c) linear queue using stacks
+
+
+import java.util.Stack;
+
+public class QueueUsingStacks {
+    Stack<Integer> stack1= new Stack<>();
+    Stack<Integer> stack2= new Stack<>();
+
+    public void enqueue(int x){
+        while(!stack1.isEmpty()){
+            stack2.push(stack1.pop());
+        }
+        stack1.push(x);
+        while(!stack2.isEmpty()){
+            stack1.push(stack2.pop());
+        }
+    }
+    public int dequeue(){
+        if(stack1.isEmpty()) throw new IllegalStateException();
+        return stack1.pop();
+    }
+    public int peek(){
+        if (stack1.isEmpty()) throw new IllegalStateException();
+        return stack1.peek();
+    }
+}
